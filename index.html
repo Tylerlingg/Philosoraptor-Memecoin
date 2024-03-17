@@ -1,19 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Philosoraptor Memecoin</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MemeToken Claim Page</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Philosoraptor Memecoin</h1>
-    <button id="connectWallet">Connect Wallet</button>
-    <button id="claimTokens">Claim Tokens</button>
-    <button id="makeDonation">Donate Tokens</button>
-    <input type="text" id="donationAmount" placeholder="Donation Amount">
-    <button id="joinWaitlist">Join Waitlist</button>
-    <input type="text" id="nameWaitlist" placeholder="Your Name">
-    
+    <div class="container">
+        <h1>MemeToken Claim Page</h1>
+        <button id="connectWalletButton">Connect Wallet</button>
+
+        <div id="claimSection" style="display:none;">
+            <button id="claimTokensButton">Claim Tokens</button>
+        </div>
+
+        <div id="donateSection" style="display:none;">
+            <input type="text" id="donationAmount" placeholder="Enter amount to donate">
+            <button id="donateButton">Donate</button>
+        </div>
+    </div>
+
+    <script src="web3.min.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
