@@ -1,84 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MemeToken Interface</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .container {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            padding: 20px;
-            width: 300px;
-        }
-
-        h2 {
-            color: #333;
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        input[type="text"],
-        input[type="number"],
-        button {
-            width: 100%;
-            padding: 10px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-    <!-- Include ethers.js Library -->
+    <title>Philosoraptor Memecoin</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h2>MemeToken Claim</h2>
-        <div class="form-group">
-            <button id="claimTokens">Claim Tokens</button>
-        </div>
-
-        <h2>Make a Donation</h2>
-        <div class="form-group">
-            <label for="donationAmount">Donation Amount (ETH):</label>
-            <input type="number" id="donationAmount" placeholder="0.01">
-        </div>
-        <div class="form-group">
-            <button id="makeDonation">Donate</button>
-        </div>
-    </div>
-
-    <!-- Your custom script -->
-    <script src="script.js"></script>
+    <h1>Philosoraptor Memecoin</h1>
+    <button id="connectWallet">Connect Wallet</button>
+    <button id="claimTokens">Claim Tokens</button>
+    <button id="makeDonation">Donate Tokens</button>
+    <input type="text" id="donationAmount" placeholder="Donation Amount">
+    <button id="joinWaitlist">Join Waitlist</button>
+    <input type="text" id="nameWaitlist" placeholder="Your Name">
+    
+    <script src="app.js"></script>
 </body>
 </html>
