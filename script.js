@@ -1,6 +1,5 @@
-const contractAddress = "0x8c7a1273aae505d530c58337101737f72ed93de9";
-const abi = [
-    	{
+const contractAddress = '0x8c7a1273aae505d530c58337101737f72ed93de9';
+const contractABI = [{
 		"inputs": [
 			{
 				"internalType": "string",
@@ -467,56 +466,62 @@ const abi = [
 		"stateMutability": "view",
 		"type": "function"
 	}
-];
+]; // Replace with your contract's ABI
 
+let web3;
 let contract;
-let userAddress;
+let userAccount;
 
-window.onload = () => {
-    document.getElementById('connectWallet').addEventListener('click', connectWallet);
-    document.getElementById('claimTokens').addEventListener('click', claimTokens);
-    document.getElementById('makeDonation').addEventListener('click', makeDonation);
-    document.getElementById('joinWaitlist').addEventListener('click', joinWaitlist);
-};
-
-async function connectWallet() {
+window.addEventListener('load', function() {
     if (typeof window.ethereum !== 'undefined') {
-        try {
-            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-            userAddress = accounts[0];
-            contract = new ethers.Contract(contractAddress, abi, new ethers.providers.Web3Provider(window.ethereum).getSigner());
-            console.log('Wallet connected:', userAddress);
-        } catch (error) {
-            console.error('Wallet connection failed:', error);
-        }
+        web3 = new Web3(window.ethereum);
+        contract = new web3.eth.Contract(contractABI, contractAddress);
+
+        document.getElementById('connectWalletButton').addEventListener('click', connectWallet);
+        document.getElementById('claimTokensButton').addEventListener('click', claimTokens);
+        document.getElementById('donateButton').addEventListener('click', makeDonation);
     } else {
-        console.error('Please install a web3 wallet like MetaMask');
+        alert("Ethereum browser extension not detected!");
     }
+});
+
+function connectWallet() {
+    ethereum.request({ method: 'eth_requestAccounts' })
+        .then(accounts => {
+            userAccount = accounts[0];
+            showClaimAndDonate();
+        })
+        .catch(error => {
+            console.error(error);
+        });
 }
 
-async function claimTokens() {
-    try {
-        const tx = await contract.claimTokens();
-        await tx.wait();
-        console.log('Tokens claimed');
-    } catch (error) {
-        console.error('Error claiming tokens:', error);
-    }
+function showClaimAndDonate() {
+    document.getElementById('claimSection').style.display = 'block';
+    document.getElementById('donateSection').style.display = 'block';
 }
 
-async function makeDonation() {
+function claimTokens() {
+    contract.methods.claimTokens().send({ from: userAccount })
+        .then(result => {
+            console.log('Tokens claimed:', result);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+}
+
+function makeDonation() {
     const amount = document.getElementById('donationAmount').value;
-    try {
-        const tx = await contract.makeDonation({ value: ethers.utils.parseEther(amount) });
-        await tx.wait();
-        console.log('Donation made');
-    } catch (error) {
-        console.error('Error making donation:', error);
-    }
-}
-
-function joinWaitlist() {
-    const name = document.getElementById('nameWaitlist').value;
-    console.log(`Added to waitlist: ${name}`);
-    // Implement the waitlist functionality based on your requirements
+    web3.eth.sendTransaction({
+        from: userAccount,
+        to: contractAddress,
+        value: web3.utils.toWei(amount, 'ether')
+    })
+    .then(result => {
+        console.log('Donation made:', result);
+    })
+    .catch(error => {
+        console.error(error);
+    });
 }
