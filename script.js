@@ -1,30 +1,6 @@
-let walletConnected = false;
-
-async function connectWallet() {
-    if (window.ethereum) {
-        try {
-            await window.ethereum.request({ method: 'eth_requestAccounts' });
-            document.getElementById('walletStatus').innerText = 'Wallet connected';
-            walletConnected = true;
-            document.getElementById('claimTokensButton').disabled = false;
-        } catch (error) {
-            console.error(error);
-            document.getElementById('walletStatus').innerText = 'Error connecting wallet';
-        }
-    } else {
-        alert("Please install MetaMask!");
-    }
-}
-
-async function claimTokens() {
-    if (!walletConnected) {
-        alert("Please connect to MetaMask first!");
-        return;
-    }
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const contractAddress = "0x8c7a1273aae505d530c58337101737f72ed93de9"; // Replace with your contract address
-    const contractABI = [{
+const contractAddress = "0x8c7a1273aae505d530c58337101737f72ed93de9";
+const abi = [
+    	{
 		"inputs": [
 			{
 				"internalType": "string",
@@ -491,17 +467,56 @@ async function claimTokens() {
 		"stateMutability": "view",
 		"type": "function"
 	}
-]]; // Replace with your contract ABI
-    const contract = new ethers.Contract(contractAddress, contractABI, signer);
-    try {
-        const transaction = await contract.claimTokens();
-        await transaction.wait();
-        document.getElementById('claimStatus').innerText = "Tokens claimed successfully!";
-    } catch (error) {
-        console.error(error);
-        document.getElementById('claimStatus').innerText = "Error claiming tokens.";
+];
+
+let contract;
+let userAddress;
+
+window.onload = () => {
+    document.getElementById('connectWallet').addEventListener('click', connectWallet);
+    document.getElementById('claimTokens').addEventListener('click', claimTokens);
+    document.getElementById('makeDonation').addEventListener('click', makeDonation);
+    document.getElementById('joinWaitlist').addEventListener('click', joinWaitlist);
+};
+
+async function connectWallet() {
+    if (typeof window.ethereum !== 'undefined') {
+        try {
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            userAddress = accounts[0];
+            contract = new ethers.Contract(contractAddress, abi, new ethers.providers.Web3Provider(window.ethereum).getSigner());
+            console.log('Wallet connected:', userAddress);
+        } catch (error) {
+            console.error('Wallet connection failed:', error);
+        }
+    } else {
+        console.error('Please install a web3 wallet like MetaMask');
     }
 }
 
-document.getElementById('connectWalletButton').addEventListener('click', connectWallet);
-document.getElementById('claimTokensButton').addEventListener('click', claimTokens);
+async function claimTokens() {
+    try {
+        const tx = await contract.claimTokens();
+        await tx.wait();
+        console.log('Tokens claimed');
+    } catch (error) {
+        console.error('Error claiming tokens:', error);
+    }
+}
+
+async function makeDonation() {
+    const amount = document.getElementById('donationAmount').value;
+    try {
+        const tx = await contract.makeDonation({ value: ethers.utils.parseEther(amount) });
+        await tx.wait();
+        console.log('Donation made');
+    } catch (error) {
+        console.error('Error making donation:', error);
+    }
+}
+
+function joinWaitlist() {
+    const name = document.getElementById('nameWaitlist').value;
+    console.log(`Added to waitlist: ${name}`);
+    // Implement the waitlist functionality based on your requirements
+}
