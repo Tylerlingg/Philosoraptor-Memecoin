@@ -3,26 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>$phil Claim Portal</title>
-    <link rel="stylesheet" href="style.css">
+    <title>MemeToken Interface</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 300px;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to the Philosoraptor Claim Portal</h1>
-    </header>
-    <main>
-        <section id="walletConnection">
-            <button id="connectWalletButton">Connect Wallet</button>
-            <p id="walletStatus">Wallet not connected</p>
-        </section>
-        <section id="tokenClaim">
-            <button id="claimTokensButton" disabled>Claim Tokens</button>
-            <p id="claimStatus"></p>
-        </section>
-    </main>
-    <footer>
-        <p>Powered by Ethereum Classic</p>
-    </footer>
+    <div class="container">
+        <h2>MemeToken Claim</h2>
+        <div class="form-group">
+            <button id="claimTokens">Claim Tokens</button>
+        </div>
+
+        <h2>Make a Donation</h2>
+        <div class="form-group">
+            <label for="donationAmount">Donation Amount (ETH):</label>
+            <input type="number" id="donationAmount" placeholder="0.01">
+        </div>
+        <div class="form-group">
+            <button id="makeDonation">Donate</button>
+        </div>
+    </div>
+
+    <!-- Include ethers.js Library -->
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+
+    <!-- Your custom script -->
     <script src="script.js"></script>
 </body>
 </html>
+
