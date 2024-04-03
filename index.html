@@ -3,25 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MemeToken Claim Page</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Philosoraptor Memecoin</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>MemeToken Claim Page</h1>
-        <button id="connectWalletButton">Connect Wallet</button>
+    <header>
+        <h1>Philosoraptor Memecoin</h1>
+    </header>
 
-        <div id="claimSection" style="display:none;">
-            <button id="claimTokensButton">Claim Tokens</button>
-        </div>
+    <!-- Raptor images placed here -->
+	<div id="raptor1" class="raptor" style="background-image: url('https://philosoraptormemecoin.xyz/raptor1.png');"></div>
+	<div id="raptor2" class="raptor" style="background-image: url('https://philosoraptormemecoin.xyz/raptor2.png');"></div>
+	<div id="raptor3" class="raptor" style="background-image: url('https://philosoraptormemecoin.xyz/raptor3.png');"></div>
+	<div id="raptor4" class="raptor" style="background-image: url('https://philosoraptormemecoin.xyz/raptor4.png');"></div>
+	<div id="raptor5" class="raptor" style="background-image: url('https://philosoraptormemecoin.xyz/raptor5.png');"></div>
+	<div id="raptor6" class="raptor" style="background-image: url('https://philosoraptormemecoin.xyz/raptor6.png');"></div>
+	<div id="raptor7" class="raptor" style="background-image: url('https://philosoraptormemecoin.xyz/raptor7.png');"></div>
+ 	<main>
+        <!-- Wallet Connection Section -->
+        <section id="walletConnection">
+            <button id="connectWallet">Connect Wallet</button>
+            <p id="walletStatus" class="wallet-not-connected">Wallet not connected</p>
+        </section>
 
-        <div id="donateSection" style="display:none;">
-            <input type="text" id="donationAmount" placeholder="Enter amount to donate">
-            <button id="donateButton">Donate</button>
-        </div>
-    </div>
+        <!-- Token Actions Section -->
+        <section id="tokenActions">
+            <button id="claimTokens">Claim Tokens</button>
+            <p id="countdownTimer"></p>
+            
+            <!-- Donation Section -->
+            <div id="donationSection">
+                <label for="donationAmount">Donation amount in ETC, the real ethereum:</label>
+                <input type="number" id="donationAmount" placeholder="Amount in ETC" min="0" step="0.01">
+                <button id="makeDonation">Donate Tokens</button>
+                <p id="donationKey">Enter 0.5 for half an ETC or 1 for one ETC.</p>
+            </div>
 
-    <script src="web3.min.js"></script>
+			<!-- Approve Liquidity Tokens Section -->
+			<div id="approveSection">
+    			<label for="approveTokenAmount">Amount of LP Tokens to Approve:</label>
+    			<input type="number" id="approveTokenAmount" placeholder="Amount of LP Tokens" min="0" step="0.01">
+    			<button id="approveTokens">Approve Tokens</button>
+			</div>
+
+			<!-- Lock Liquidity Tokens Section -->
+			<div id="lockSection">
+    			<label for="lockTokenAmount">Amount of LP Tokens to Lock:</label>
+    			<input type="number" id="lockTokenAmount" placeholder="Amount to Lock" min="0" step="0.01">
+    			<button id="lockLiquidityTokens">Lock Liquidity Tokens</button>
+			</div>
+        </section>
+        
+        <section id="faqSection">
+  			<details>
+    			<summary>What is $phil?</summary>
+    			<p>$phil is a memecoin that I created after the 'Philosoraptor' meme... The coin will be used to claim the next phase of the project, amount TBA.</p>
+  			</details>
+  			<details>
+    			<summary>Why was $phil created?</summary>
+    			<p>To be honest there's multiple reasons. For starters I like learning and experimenting with stuff, then after being in the space for over two years I decided to just say fuck it and create a coin on Ethereum Classic because I think it deserves more attention, so I figured what better way to experiment than on the original ethereum chain (which still runs, and always will run on a Proof of Work Consensus Mechanism). 
+
+Secondly, I'm over the majority of projects going to zero and all of us moving onto the next thing after two days. I've realized if I try to keep up with every single thing in this space I'll go crazy, if I haven't done so already. I've also realized I have a hard time trusting anyone, so this memecoin is me building some shit myself and seeing what happens. I'm doxxed, I'm not out here to scam anyone, and this is a FreeClaim. No presale. No nothing. Just go to the site and claim your tokens, if you want. 
+
+Lastly, it's a good way to learn about the world that we live in and interact with everyday (the 'world' being web3). I'm 31 and didn't know what Computer Science was until I was almost 29. So its fun to learn how to build a website, I enjoy looking into Smart Contracts and trying to make sure everything functions properly, and it's fun to be challenged everyday by people that are pretty damn smart. This is just another part of my journey through the space and I'm enjoying it in the moment with little idea of whats next.</p>
+    			<img src="https://philosoraptormemecoin.xyz/PhilosophersStone.jpg" alt="Philosoraptor Memecoin" class="faq-image">
+  			</details>
+  			<details>
+    			<summary>How long do I have to claim my tokens, and is there a limit on how many tokens I'm able to claim? </summary>
+    			<p>Claim period ends on Good Friday @ 12PM GMT (March 29th). 
+
+You are able to claim 10,000 tokens per wallet. There is a 2min cooldown each time after someone claims theirs.</p>
+    			<img src="https://philosoraptormemecoin.xyz/PhilJourneyMeme.jpg" alt="Philosoraptor Memecoin" class="faq-image">
+  			</details>
+  			<details>
+    			<summary>Is the contract safe?</summary>
+    			<p>Yes, pretty sure it is anyway. I'm not a dev, so if you don't follow me or have never followed me you probably wouldn't know that. But from the research I did, it's safe. </p>
+    			<img src="https://philosoraptormemecoin.xyz/PhilNonDevCodesMeme.jpg" alt="Philosoraptor Memecoin" class="faq-image">
+  			</details>
+  			<details>
+    			<summary>Where do the Donations go?</summary>
+    			<p>They go to: 0x92EcE7c4f6b9287DC05dC5515FFe327C009085CB
+
+This is an address which I control. I tried setting up a multisig with Hebeswap and it wouldn't read the signatures from the Ledgers for whatever reason.</p>
+    			<img src="https://philosoraptormemecoin.xyz/PhilLegacyMeme.jpg" alt="Philosoraptor Memecoin" class="faq-image">
+  			</details>
+  			<details>
+    			<summary>How can I swap ETH for ETC?</summary>
+    			<p>There's a few ways but what I found the easiest to be is going through 
+@Changelly_team
+. Earlier I sent around .02eth and received my ETC within 10 minutes, if that. 
+
+*if you don't feel comfortable swapping for ETC then just shoot me a DM and I'll send you enough to cover the gas.
+
+Link: https://changelly.com/exchange/etc</p>
+    			<img src="https://philosoraptormemecoin.xyz/PhilDigitalArtifactsMeme.jpg" alt="Philosoraptor Memecoin" class="faq-image">
+  			</details>
+  			<details>
+    			<summary>How do I add Ethereum Classic to my Metamask wallet?</summary>
+    			<p>There's a great walkthrough here: https://ethereumclassic.org/blog/2022-12-21-using-ethereum-classic-with-metamask</p>
+  			</details>
+  			
+		</section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Philosoraptor Memecoin. All rights reserved.</p>
+    </footer>
+    
     <script src="app.js"></script>
 </body>
 </html>
