@@ -1,38 +1,156 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700; /* For a bolder weight, if desired */
     text-align: center;
     padding: 20px;
-}
-
-.container {
-    background-color: white;
-    margin: auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    width: 80%;
-    max-width: 500px;
+    background-color: #87cc76;
 }
 
 button {
-    background-color: #008CBA;
-    color: white;
-    padding: 10px 20px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 4px;
+    margin: 10px;
+    padding: 10px;
     cursor: pointer;
-    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: relative; /* Added position relative */
+    z-index: 100; /* Added higher z-index */
 }
 
 button:hover {
-    background-color: #005f73;
+    background-color: #0056b3;
 }
 
-input[type=text] {
+input[type="number"] {
+    margin: 10px;
     padding: 10px;
-    margin: 10px 0;
-    width: calc(100% - 24px);
-    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: relative; /* Added position relative */
+    z-index: 100; /* Added higher z-index */
 }
+
+label {
+    display: block;
+    margin-top: 20px;
+    position: relative; /* Added position relative */
+    z-index: 100; /* Added higher z-index */
+}
+
+#donationKey {
+    font-style: italic;
+    color: #555;
+    position: relative; /* Added position relative */
+    z-index: 100; /* Added higher z-index */
+}
+
+.successful-donation {
+    color: gold;
+    font-weight: bold;
+}
+
+#walletStatus {
+    margin: 10px;
+    position: relative; /* Added position relative */
+    z-index: 100; /* Added higher z-index */
+}
+.wallet-connected {
+    color: blue;
+    font-weight: bold;
+}
+.wallet-not-connected {
+    color: red;
+}
+
+.faq-image {
+  width: 100%; /* makes the image responsive */
+  max-width: 300px; /* maximum width of the image */
+  height: auto; /* maintain aspect ratio */
+  margin: 10px 0; /* adds vertical space above and below the image */
+  display: block; /* ensures the image is on its own line */
+  margin-left: auto; /* centers the image */
+  margin-right: auto;
+}
+
+/* Raptor Animation */
+.raptor {
+    position: fixed;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0; /* Start invisible */
+    z-index: 10; /* Lower z-index than interactive elements */
+    animation: hop 35s infinite;
+    pointer-events: none; /* Added to ensure raptors don't block mouse events */
+}
+
+/* Animation keyframes */
+@keyframes hop {
+    0%, 100% { opacity: 0; }
+    12.5% { opacity: 1; }
+    14.3%, 100% { opacity: 0; }
+}
+
+/* Specify the dimensions and animations for each raptor */
+#raptor1 {
+    background-image: url('https://philosoraptormemecoin.xyz/raptor1.png');
+    width: 195px; /* Replace with the actual width */
+    height: 262px; /* Replace with the actual height */
+    bottom: 10%;
+    left: 10%;
+}
+
+#raptor2 {
+    background-image: url('https://philosoraptormemecoin.xyz/raptor2.png');
+    width: 489px; /* Replace with the actual width */
+    height: 246px; /* Replace with the actual height */
+    animation-delay: 5s; /* Starts after raptor1 */
+    bottom: 20%;
+    left: 20%;
+}
+
+#raptor3 {
+    background-image: url('https://philosoraptormemecoin.xyz/raptor3.png');
+    width: 298px; /* Replace with the actual width */
+    height: 223px; /* Replace with the actual height */
+    animation-delay: 10s; /* Starts after raptor2 */
+    bottom: 30%;
+    left: 30%;
+}
+
+#raptor4 {
+    background-image: url('https://philosoraptormemecoin.xyz/raptor4.png');
+    width: 269px; /* Replace with the actual width */
+    height: 252px; /* Replace with the actual height */
+    animation-delay: 15s; /* Starts after raptor3 */
+    bottom: 40%;
+    left: 40%;
+}
+
+#raptor5 {
+    background-image: url('https://philosoraptormemecoin.xyz/raptor5.png');
+    width: 633px; /* Replace with the actual width */
+    height: 450px; /* Replace with the actual height */
+    animation-delay: 20s; /* Starts after raptor4 */
+    bottom: 30%;
+    left: 30%;
+}
+
+#raptor6 {
+    background-image: url('https://philosoraptormemecoin.xyz/raptor6.png');
+    width: 345px; /* Replace with the actual width */
+    height: 500px; /* Replace with the actual height */
+    animation-delay: 25s; /* Starts after raptor5 */
+    bottom: 40%;
+    left: 40%;
+}
+
+#raptor7 {
+    background-image: url('https://philosoraptormemecoin.xyz/raptor7.png');
+    width: 605px; /* Replace with the actual width */
+    height: 383px; /* Replace with the actual height */
+    animation-delay: 30s; /* Starts after raptor6 */
+    bottom: 60%;
+    left: 60%;
+
